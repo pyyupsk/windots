@@ -7,9 +7,14 @@ function Handle-Error {
     exit 1
 }
 
+# Ensure the script is run with admin privileges
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Handle-Error "Please run the script with Administrator privileges."
+}
+
 try {
     # Run the install-tools.ps1 script
-    .\install-tools.ps1
+    .\install\install-tools.ps1
 } catch {
     Handle-Error "Failed to run install-tools.ps1: $_"
 }
@@ -30,7 +35,7 @@ foreach ($module in $modules) {
         try {
             Install-Module -Name $module -Scope CurrentUser -Force -AllowPrerelease -SkipPublisherCheck
         } catch {
-            Handle-Error "Failed to install module $module: $_"
+            Handle-Error "Failed to install module ${module}: ${_}"
         }
     }
 }
@@ -94,7 +99,7 @@ Write-Host "PowerShell profile setup, modules installed, Oh-My-Posh installed, a
 
 # Run the post-install.ps1 script
 try {
-    .\post-install.ps1
+    .\install\post-install.ps1
 } catch {
     Handle-Error "Failed to run post-install.ps1: $_"
 }

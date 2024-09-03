@@ -7,11 +7,6 @@ function Handle-Error {
     exit 1
 }
 
-# Ensure the script is run with admin privileges
-if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Handle-Error "Please run the script with Administrator privileges."
-}
-
 # Install Chocolatey
 if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     try {

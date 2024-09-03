@@ -24,25 +24,19 @@ Enable-PowerType
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\pyyupsk.omp.json" | Invoke-Expression
 
 # Custom aliases and functions for common tasks
-$aliases = @{
-    'la' = { Get-ChildItem -Force }
-    'll' = { Get-ChildItem -Force -Hidden }
-    'l' = { Get-ChildItem -Force }
-    'nf' = { param($name) New-Item -ItemType "file" -Name $name }
-    'nd' = { param($name) New-Item -ItemType "directory" -Name $name }
-    'rm' = { param($name) Remove-Item $name }
-    'rmrf' = { param($name) Remove-Item $name -Force -Recurse }
-    'c' = { Clear-Host }
-    'export' = { param($name, $value) Set-Item -Force -Path "env:$name" -Value $value }
-    'gs' = { git status }
-    'ga' = { git add $args }
-    'gaa' = { git add . }
-    'gc' = { git commit -m $args }
-    'gp' = { git push }
-    'gcl' = { git clone $args }
-}
-
-$aliases.GetEnumerator() | ForEach-Object { Set-Alias -Name $_.Key -Value $_.Value }
+function la { Get-ChildItem -Force }
+function ll { Get-ChildItem -Force -Hidden }
+function l { Get-ChildItem -Force }
+function nf { param($name) New-Item -ItemType "file" -Name $name }
+function nd { param($name) New-Item -ItemType "directory" -Name $name }
+function rm { param($name) Remove-Item $name }
+function rmrf { param($name) Remove-Item $name -Force -Recurse }
+function c { Clear-Host }
+function export { param($name, $value) Set-Item -Force -Path "env:$name" -Value $value }
+function gs { git status }
+function ga { git add $args }
+function gaa { git add . }
+function gcl { git clone $args }
 
 # Help function to display available custom commands
 function Show-Help {
@@ -60,14 +54,11 @@ Usage:
     gs - Get the status of the current git repository
     ga <name> - Add a file to the current git repository
     gaa - Add all files to the current git repository
-    gc <message> - Commit changes to the current git repository
-    gp - Push changes to the current git repository
     gcl <url> - Clone a git repository
 "@
     Write-Host $helpText
 }
 
 # Clear the console and display welcome message
-Clear-Host
 Write-Host "Welcome to the Pyyupsk PowerShell profile"
 Write-Host "Type 'Show-Help' to see a list of available commands"

@@ -37,11 +37,5 @@ try {
     Handle-Error "Failed to download theme script: $_"
 }
 
-# Reload the profile
-try {
-    & $profile
-} catch {
-    Handle-Error "Failed to reload profile: $_"
-}
-
 Write-Host "Profile and theme scripts downloaded and profile reloaded successfully!"
+Write-Host "Please restart your PowerShell session to apply the changes."
