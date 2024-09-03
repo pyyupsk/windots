@@ -1,21 +1,46 @@
-# Run the install-tools.ps1 script
-& "$PSScriptRoot\install-tools.ps1"
+# Function to handle errors
+function Handle-Error {
+    param (
+        [string]$ErrorMessage
+    )
+    Write-Error $ErrorMessage
+    exit 1
+}
+
+try {
+    # Run the install-tools.ps1 script
+    irm "https://github.com/pyyupsk/dotfiles/raw/main/install/install-tools.ps1" | iex
+} catch {
+    Handle-Error "Failed to run install-tools.ps1: $_"
+}
 
 # Find or create PowerShell profile
 if (!(Test-Path -Path $PROFILE)) {
-    New-Item -ItemType File -Path $PROFILE -Force
+    try {
+        New-Item -ItemType File -Path $PROFILE -Force
+    } catch {
+        Handle-Error "Failed to create PowerShell profile: $_"
+    }
 }
 
 # Install PowerShell modules
 $modules = @("PSFzf", "PSReadLine", "Terminal-Icons", "PowerType")
 foreach ($module in $modules) {
     if (!(Get-Module -ListAvailable -Name $module)) {
-        Install-Module -Name $module -Scope CurrentUser -Force -AllowPrerelease -SkipPublisherCheck
+        try {
+            Install-Module -Name $module -Scope CurrentUser -Force -AllowPrerelease -SkipPublisherCheck
+        } catch {
+            Handle-Error "Failed to install module $module: $_"
+        }
     }
 }
 
 # Install Oh-My-Posh
-winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
+try {
+    winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
+} catch {
+    Handle-Error "Failed to install Oh-My-Posh: $_"
+}
 
 # Install Nerd Font (CascadiaCode)
 # Credit to https://github.com/ChrisTitusTech/powershell-profile/blob/main/setup.ps1#L20
@@ -59,9 +84,17 @@ function Install-NerdFonts {
         Write-Error "Failed to download or install ${FontDisplayName} font. Error: $_"
     }
 }
-Install-NerdFonts -FontName "CascadiaCode" -FontDisplayName "CaskaydiaCove NF"
+try {
+    Install-NerdFonts -FontName "CascadiaCode" -FontDisplayName "CaskaydiaCove NF"
+} catch {
+    Handle-Error "Failed to install Nerd Font: $_"
+}
 
 Write-Host "PowerShell profile setup, modules installed, Oh-My-Posh installed, and Nerd Font installed successfully!"
 
 # Run the post-install.ps1 script
-& "$PSScriptRoot\post-install.ps1"
+try {
+    irm "https://github.com/pyyupsk/dotfiles/raw/main/install/post-install.ps1" | iex
+} catch {
+    Handle-Error "Failed to run post-install.ps1: $_"
+}
