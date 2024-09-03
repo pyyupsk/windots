@@ -12,7 +12,7 @@ Welcome to my dotfiles repository! 🚀💻 This project aims to streamline the 
 
 1. **Run the installation script**:
    ```powershell
-   irm "https://github.com/pyyupsk/dotfiles/raw/main/configs/install/install.ps1" | iex
+   irm "https://github.com/pyyupsk/dotfiles/raw/main/install/install.ps1" | iex
    ```
 
 2. **Enjoy your new development environment!** 🎉
