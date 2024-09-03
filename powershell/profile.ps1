@@ -10,12 +10,14 @@ fnm env --use-on-cd | Out-String | Invoke-Expression
 $modules = @('PSReadLine', 'PSFzf', 'Terminal-Icons')
 $modules | ForEach-Object { Import-Module $_ }
 
-Set-PSReadLineOption -PredictionViewStyle ListView -PredictionSource HistoryAndPlugin
+# Enable the modules and configure settings
+Enable-PowerType
+Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle ListView
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
-
-# Enable PowerType for AI-powered command-line suggestions
-Enable-PowerType
 
 # Set console encoding to UTF-8
 [console]::InputEncoding = [console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
