@@ -39,9 +39,9 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
 
 # Install common tools using winget
 try {
-    scoop install fnm
+    winget install Schniz.fnm
 } catch {
-    Handle-Error "Failed to install fnm using scoop: $_"
+    Handle-Error "Failed to install fnm using winget: $_"
 }
 
 Write-Host "Tools installed successfully!"
