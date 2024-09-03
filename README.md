@@ -10,12 +10,17 @@ Welcome to my dotfiles repository! 🚀💻 This project aims to streamline the 
 
 ## 🛠️ Quick Start
 
-1. **Run the installation script**:
+1. **Clone the repository**:
    ```powershell
-   irm "https://github.com/pyyupsk/dotfiles/raw/main/install/install.ps1" | iex
+   git clone https://github.com/pyyupsk/dotfiles.git
    ```
 
-2. **Enjoy your new development environment!** 🎉
+2. **Run the installation script**:
+   ```powershell
+   .\install\install.ps1
+   ```
+
+3. **Enjoy your new development environment!** 🎉
 
 ## 📦 What's Included?
 

@@ -9,7 +9,7 @@ function Handle-Error {
 
 try {
     # Run the install-tools.ps1 script
-    irm "https://github.com/pyyupsk/dotfiles/raw/main/install/install-tools.ps1" | iex
+    .\install-tools.ps1
 } catch {
     Handle-Error "Failed to run install-tools.ps1: $_"
 }
@@ -94,7 +94,7 @@ Write-Host "PowerShell profile setup, modules installed, Oh-My-Posh installed, a
 
 # Run the post-install.ps1 script
 try {
-    irm "https://github.com/pyyupsk/dotfiles/raw/main/install/post-install.ps1" | iex
+    .\post-install.ps1
 } catch {
     Handle-Error "Failed to run post-install.ps1: $_"
 }
