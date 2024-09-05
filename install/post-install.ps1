@@ -7,35 +7,34 @@ function Handle-Error {
     exit 1
 }
 
-# Define URLs for the profile and theme scripts
-$profileScriptUrl = "https://github.com/pyyupsk/dotfiles/raw/main/powershell/profile.ps1"
-$themeScriptUrl = "https://github.com/pyyupsk/dotfiles/raw/main/oh-my-posh/pyyupsk.omp.json"
+# Define paths for the source and destination scripts
+$sourceProfilePath = ".\powershell\profile.ps1"
+$sourceThemePath = ".\oh-my-posh\pyyupsk.omp.json"
+$destProfilePath = $PROFILE
+$destThemePath = "$env:POSH_THEMES_PATH\pyyupsk.omp.json"
 
-# Define paths for the downloaded scripts
-$profilePath = $PROFILE
-$themePath = "$env:POSH_THEMES_PATH\pyyupsk.omp.json"
-
+# Ensure the destination theme directory exists
 try {
-    if (-not (Test-Path $themePath)) {
-        New-Item -ItemType File -Path $themePath -Force | Out-Null
+    if (-not (Test-Path $env:POSH_THEMES_PATH)) {
+        New-Item -ItemType Directory -Path $env:POSH_THEMES_PATH -Force | Out-Null
     }
 } catch {
-    Handle-Error "Failed to create theme file: $_"
+    Handle-Error "Failed to create theme directory: $_"
 }
 
-# Download profile script
+# Copy profile script
 try {
-    Invoke-WebRequest -Uri $profileScriptUrl -OutFile $profilePath -UseBasicParsing | Out-Null
+    Copy-Item -Path $sourceProfilePath -Destination $destProfilePath -Force
 } catch {
-    Handle-Error "Failed to download profile script: $_"
+    Handle-Error "Failed to copy profile script: $_"
 }
 
-# Download theme script
+# Copy theme script
 try {
-    Invoke-WebRequest -Uri $themeScriptUrl -OutFile $themePath
+    Copy-Item -Path $sourceThemePath -Destination $destThemePath -Force
 } catch {
-    Handle-Error "Failed to download theme script: $_"
+    Handle-Error "Failed to copy theme script: $_"
 }
 
-Write-Host "Profile and theme scripts downloaded and profile reloaded successfully!"
+Write-Host "Profile and theme scripts copied successfully!"
 Write-Host "Please restart your PowerShell session to apply the changes."

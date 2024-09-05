@@ -4,11 +4,20 @@ if ([System.Security.Principal.WindowsIdentity]::GetCurrent().IsSystem) {
 }
 
 # Initialize Fast Node Manager (fnm) and set up environment
+$env:PATH = [System.Environment]::ExpandEnvironmentVariables(
+    [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + 
+    [System.Environment]::GetEnvironmentVariable("PATH", "User")
+)
 fnm env --use-on-cd | Out-String | Invoke-Expression
 
 # Import modules and configure settings
 $modules = @('PSReadLine', 'PSFzf', 'Terminal-Icons')
-$modules | ForEach-Object { Import-Module $_ }
+$modules = @('PSReadLine', 'PSFzf', 'Terminal-Icons')
+$modules | ForEach-Object { 
+    if (Get-Module -ListAvailable -Name $_) {
+        Import-Module $_ -ErrorAction SilentlyContinue
+    }
+}
 
 # Enable the modules and configure settings
 Enable-PowerType
@@ -23,7 +32,11 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory
 [console]::InputEncoding = [console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
 # Initialize Oh My Posh with custom theme
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\pyyupsk.omp.json" | Invoke-Expression
+$env:POSH_THEMES_PATH = "$env:POSH_THEMES_PATH" # Cache the path
+$ohmyposhConfig = "$env:POSH_THEMES_PATH\pyyupsk.omp.json"
+if (Test-Path $ohmyposhConfig) {
+    oh-my-posh init pwsh --config $ohmyposhConfig | Invoke-Expression
+}
 
 # Custom aliases and functions for common tasks
 function la { Get-ChildItem -Force }
@@ -36,6 +49,7 @@ function rmrf { param($name) Remove-Item $name -Force -Recurse }
 function c { Clear-Host }
 function export { param($name, $value) Set-Item -Force -Path "env:$name" -Value $value }
 function gs { git status }
+function gsvl { git status -v > gitstatus.txt }
 function ga { git add $args }
 function gaa { git add . }
 function gcl { git clone $args }
