@@ -1,0 +1,25 @@
+{
+    "workbench.colorTheme": "Bearded Theme Anthracite",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.cursorBlinking": "phase",
+    "editor.fontFamily": "Consolas, 'Courier New', monospace, CodeNewRoman Nerd Font",
+    "editor.fontSize": 15.5,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "none",
+    "editor.tabCompletion": "on",
+    "editor.cursorSurroundingLines": 15,
+    "editor.cursorStyle": "line",
+    "editor.largeFileOptimizations": true,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.unicodeHighlight.allowedCharacters": {
+        " ": true
+    },
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.wordWrap": "off",
+    "editor.guides.indentation": false,
+    "editor.guides.bracketPairs": false,
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "workbench.layoutControl.enabled": false,
+    "window.commandCenter": false,
+    "window.menuBarVisibility": "compact"
+}
