@@ -7,17 +7,6 @@ function Handle-Error {
     exit 1
 }
 
-# Install Chocolatey
-if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
-    try {
-        Set-ExecutionPolicy Bypass -Scope Process -Force
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    } catch {
-        Handle-Error "Failed to install Chocolatey: $_"
-    }
-}
-
 # Install winget if not already installed
 if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
     try {
@@ -32,10 +21,22 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
     }
 }
 
+# Install Chocolatey
+if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+    try {
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    } catch {
+        Handle-Error "Failed to install Chocolatey: $_"
+    }
+}
+
 # Install common tools using winget
 $tools = @(
     "Schniz.fnm",
-    "Git.Git"
+    "Git.Git",
+    "Neovim.Neovim"
 )
 
 foreach ($tool in $tools) {

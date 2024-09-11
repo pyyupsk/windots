@@ -58,6 +58,7 @@ function gcl { git clone $args }
 function Show-Help {
     $helpText = @"
 Usage:
+    ctrl + r - Search for a command
     la - List all files in the current directory
     ll - List all files in the current directory with hidden files
     l - List all files in the current directory
