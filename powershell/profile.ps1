@@ -1,7 +1,5 @@
-# Disable PowerShell telemetry if running as SYSTEM
-if ([System.Security.Principal.WindowsIdentity]::GetCurrent().IsSystem) {
-    [System.Environment]::SetEnvironmentVariable('POWERSHELL_TELEMETRY_OPTOUT', 'true', [System.EnvironmentVariableTarget]::Machine)
-}
+# Set PowerShell to UTF-8
+[console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
 # Initialize Fast Node Manager (fnm) and set up environment
 $env:PATH = [System.Environment]::ExpandEnvironmentVariables(
@@ -10,33 +8,35 @@ $env:PATH = [System.Environment]::ExpandEnvironmentVariables(
 )
 fnm env --use-on-cd | Out-String | Invoke-Expression
 
-# Import modules and configure settings
-$modules = @('PSReadLine', 'PSFzf', 'Terminal-Icons')
-$modules = @('PSReadLine', 'PSFzf', 'Terminal-Icons')
-$modules | ForEach-Object { 
-    if (Get-Module -ListAvailable -Name $_) {
-        Import-Module $_ -ErrorAction SilentlyContinue
-    }
-}
+# Terminal Icons
+Import-Module -Name Terminal-Icons
 
-# Enable the modules and configure settings
+# Enable PowerType
 Enable-PowerType
+
+# PSReadLine
+Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin -PredictionViewStyle ListView
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+
+# PSFzf
+Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
-# Set console encoding to UTF-8
-[console]::InputEncoding = [console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+$ENV:FZF_DEFAULT_OPTS=@"
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
+--color=selected-bg:#45475a
+--multi
+"@
 
 # Initialize Oh My Posh with custom theme
-$env:POSH_THEMES_PATH = "$env:POSH_THEMES_PATH" # Cache the path
 $ohmyposhConfig = "$env:POSH_THEMES_PATH\pyyupsk.omp.json"
-if (Test-Path $ohmyposhConfig) {
-    oh-my-posh init pwsh --config $ohmyposhConfig | Invoke-Expression
-}
+oh-my-posh init pwsh --config $ohmyposhConfig | Invoke-Expression
 
 # Custom aliases and functions for common tasks
 function la { Get-ChildItem -Force }
@@ -53,6 +53,10 @@ function gsvl { git status -v > gitstatus.txt }
 function ga { git add $args }
 function gaa { git add . }
 function gcl { git clone $args }
+function pn { pnpm $args }
+function ff { fd $args | fzf }
+function fdir { fd --type d }
+function fexe { fd --type x }
 
 # Help function to display available custom commands
 function Show-Help {
@@ -72,10 +76,10 @@ Usage:
     ga <name> - Add a file to the current git repository
     gaa - Add all files to the current git repository
     gcl <url> - Clone a git repository
+    pn <command> - Run a pnpm command
+    ff <name> - Fuzzy find using fd and fzf
+    fdir - Find directories
+    fexe - Find executables
 "@
     Write-Host $helpText
 }
-
-# Clear the console and display welcome message
-Write-Host "Welcome to the Pyyupsk PowerShell profile"
-Write-Host "Type 'Show-Help' to see a list of available commands"
