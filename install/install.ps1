@@ -90,7 +90,7 @@ function Install-NerdFonts {
     }
 }
 try {
-    Install-NerdFonts -FontName "CascadiaCode" -FontDisplayName "CaskaydiaCove NF"
+    Install-NerdFonts -FontName "JetBrainsMono" -FontDisplayName "JetBrains Mono"
 } catch {
     Handle-Error "Failed to install Nerd Font: $_"
 }

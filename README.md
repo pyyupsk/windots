@@ -27,7 +27,7 @@ Welcome to my dotfiles repository! 🚀💻 This project aims to streamline the 
 
 ## 🖼️ Screenshots
 
-![PowerShell with Oh My Posh](/images/desktop.png)
+![pyyupsk's Desktop](.github/images/desktop.png)
 
 ## 📬 Contact
 

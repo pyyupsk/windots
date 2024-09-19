@@ -31,9 +31,9 @@ $ENV:FZF_DEFAULT_OPTS = @"
 "@
 
 # Custom aliases and functions for common tasks
-function la { Get-ChildItem -Force }
-function ll { Get-ChildItem -Force -Hidden }
-function l { Get-ChildItem -Force }
+function la { eza -l -a --icons }
+function ll { eza -T --icons }
+function l { eza -l --icons }
 function nf { param($name) New-Item -ItemType "file" -Name $name }
 function nd { param($name) New-Item -ItemType "directory" -Name $name }
 function rm { param($name) Remove-Item $name }
@@ -50,17 +50,16 @@ function ff { fd $args | fzf }
 function fdir { fd --type d }
 function fexe { fd --type x }
 function lg { lazygit }
-function kollama { Get-Process | Where-Object { $_.ProcessName -like '*ollama*' } | Stop-Process }
 function bf { fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" }
-function wf { winfetch }
+function mm { macchina }
 
 # Help function to display available custom commands
 function Show-Help {
     $helpText = @"
 Usage:
     ctrl + r - Search for a command
-    la - List all files in the current directory
-    ll - List all files in the current directory with hidden files
+    la - List all files in the current directory with hidden files
+    ll - List all files in the current directory in tree format
     l - List all files in the current directory
     nf <name> - Create a new file in the current directory
     nd <name> - Create a new directory in the current directory
@@ -77,11 +76,14 @@ Usage:
     fdir - Find directories
     fexe - Find executables
     lg - Open lazygit
-    kollama - Kill all 'ollama' processes
     bf - Fuzzy find with preview using bat
+    mm - Show system information 
 "@
     Write-Host $helpText
 }
 
 # Set up starship prompt
 Invoke-Expression (&starship init powershell)
+
+# Set up zoxide
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
