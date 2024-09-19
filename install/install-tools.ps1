@@ -21,22 +21,12 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
     }
 }
 
-# Install Chocolatey
-if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
-    try {
-        Set-ExecutionPolicy Bypass -Scope Process -Force
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    } catch {
-        Handle-Error "Failed to install Chocolatey: $_"
-    }
-}
-
 # Install common tools using winget
 $tools = @(
+    "wez.wezterm",
     "Schniz.fnm",
     "Git.Git",
-    "Neovim.Neovim"
+    "fzf"
 )
 
 foreach ($tool in $tools) {
@@ -49,7 +39,7 @@ foreach ($tool in $tools) {
 }
 
 # Add OpenSSL to PATH
-$openssl_path = "C:\Program Files\Git\usr\bin"
+$openssl_path = "$env:ProgramFiles\Git\usr\bin"
 if (Test-Path $openssl_path) {
     $env:Path += ";$openssl_path"
     [Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::User)

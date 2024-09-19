@@ -2,10 +2,6 @@
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
 # Initialize Fast Node Manager (fnm) and set up environment
-$env:PATH = [System.Environment]::ExpandEnvironmentVariables(
-    [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + 
-    [System.Environment]::GetEnvironmentVariable("PATH", "User")
-)
 fnm env --use-on-cd | Out-String | Invoke-Expression
 
 # Terminal Icons
@@ -26,17 +22,13 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
-$ENV:FZF_DEFAULT_OPTS=@"
+$ENV:FZF_DEFAULT_OPTS = @"
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
 --color=selected-bg:#45475a
 --multi
 "@
-
-# Initialize Oh My Posh with custom theme
-$ohmyposhConfig = "$env:POSH_THEMES_PATH\pyyupsk.omp.json"
-oh-my-posh init pwsh --config $ohmyposhConfig | Invoke-Expression
 
 # Custom aliases and functions for common tasks
 function la { Get-ChildItem -Force }
@@ -57,6 +49,10 @@ function pn { pnpm $args }
 function ff { fd $args | fzf }
 function fdir { fd --type d }
 function fexe { fd --type x }
+function lg { lazygit }
+function kollama { Get-Process | Where-Object { $_.ProcessName -like '*ollama*' } | Stop-Process }
+function bf { fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" }
+function wf { winfetch }
 
 # Help function to display available custom commands
 function Show-Help {
@@ -80,6 +76,12 @@ Usage:
     ff <name> - Fuzzy find using fd and fzf
     fdir - Find directories
     fexe - Find executables
+    lg - Open lazygit
+    kollama - Kill all 'ollama' processes
+    bf - Fuzzy find with preview using bat
 "@
     Write-Host $helpText
 }
+
+# Set up starship prompt
+Invoke-Expression (&starship init powershell)

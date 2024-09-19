@@ -51,8 +51,8 @@ try {
 # Credit to https://github.com/ChrisTitusTech/powershell-profile/blob/main/setup.ps1#L20
 function Install-NerdFonts {
     param (
-        [string]$FontName = "CascadiaCode",
-        [string]$FontDisplayName = "CaskaydiaCove NF",
+        [string]$FontName = "JetBrainsMono",
+        [string]$FontDisplayName = "JetBrains Mono",
         [string]$Version = "3.2.1"
     )
 

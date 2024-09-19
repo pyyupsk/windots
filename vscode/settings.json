@@ -1,25 +1,74 @@
 {
-    "workbench.colorTheme": "Bearded Theme Anthracite",
-    "workbench.iconTheme": "material-icon-theme",
-    "editor.cursorBlinking": "phase",
-    "editor.fontFamily": "Consolas, 'Courier New', monospace, CodeNewRoman Nerd Font",
-    "editor.fontSize": 15.5,
-    "editor.minimap.enabled": false,
-    "editor.renderWhitespace": "none",
-    "editor.tabCompletion": "on",
-    "editor.cursorSurroundingLines": 15,
-    "editor.cursorStyle": "line",
-    "editor.largeFileOptimizations": true,
-    "editor.unicodeHighlight.invisibleCharacters": false,
-    "editor.unicodeHighlight.allowedCharacters": {
-        " ": true
-    },
-    "editor.cursorSmoothCaretAnimation": "on",
-    "editor.wordWrap": "off",
-    "editor.guides.indentation": false,
-    "editor.guides.bracketPairs": false,
-    "terminal.integrated.defaultProfile.windows": "PowerShell",
-    "workbench.layoutControl.enabled": false,
-    "window.commandCenter": false,
-    "window.menuBarVisibility": "compact"
+  // Styles and UI
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "catppuccin.accentColor": "blue",
+  "workbench.iconTheme": "material-icon-theme",
+  "apc.electron": {
+    "frame": false,
+    "titleBarStyle": "hidden",
+    "opacity": 0.95
+  },
+  "apc.font.family": "JetBrainsMono Nerd Font",
+  "apc.monospace.font.family": "JetBrainsMono Nerd Font",
+  "apc.menubar.compact": true,
+  "apc.activityBar": {
+    "position": "bottom",
+    "size": 30,
+    "itemSize": 30,
+    "itemMargin": 10
+  },
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.location": "bottom",
+  "workbench.editor.showTabs": "none",
+  "workbench.editor.editorActionsLocation": "hidden",
+  "workbench.layoutControl.enabled": false,
+  "window.commandCenter": false,
+  "catppuccin.workbenchMode": "minimal",
+  "catppuccin.bracketMode": "neovim",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "phase",
+  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontSize": 15.5,
+  "editor.cursorSurroundingLines": 15,
+  "editor.cursorStyle": "line",
+  "window.zoomLevel": 0,
+
+  // Performance
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "none",
+  "editor.largeFileOptimizations": true,
+  "editor.wordWrap": "off",
+  "editor.guides.indentation": false,
+  "editor.guides.bracketPairs": false,
+  "files.watcherExclude": {
+    "**/dist/**": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 4096,
+
+  // Formatting
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.allowedCharacters": {
+    " ": true
+  },
+  "files.autoSave": "onWindowChange",
+
+  // Git
+  "git.enabled": true,
+  "git.autofetch": true,
+
+  // Search
+  "search.followSymlinks": false,
+
+  // TypeScript
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Custom CSS
+  "vscode_custom_css.imports": [
+    "file:///e:/Users/pthip/.cursor/extensions/brandonkirbyson.vscode-animations-2.0.3/dist/updateHandler.js"
+  ],
+
+  // Terminal
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
 }

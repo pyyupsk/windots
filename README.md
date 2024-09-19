@@ -2,20 +2,16 @@
 
 Welcome to my dotfiles repository! 🚀💻 This project aims to streamline the process of setting up a powerful and efficient development environment on Windows, tailored for modern software development.
 
-## 🌟 Features
-
-- **Automated Installation**: Quick and easy setup of essential development tools
-- **PowerShell Profile**: Custom-tailored PowerShell profile for enhanced productivity
-- **Oh My Posh Theme**: Beautifully crafted Oh My Posh theme for an aesthetic terminal experience
-
 ## 🛠️ Quick Start
 
 1. **Clone the repository**:
+
    ```powershell
    git clone https://github.com/pyyupsk/dotfiles.git
    ```
 
 2. **Run the installation script**:
+
    ```powershell
    .\install\install.ps1
    ```
@@ -24,28 +20,17 @@ Welcome to my dotfiles repository! 🚀💻 This project aims to streamline the 
 
 ## 📦 What's Included?
 
-- **PowerShell Profile**: Enhanced with useful aliases and functions
-- **Oh My Posh**: Beautiful and informative prompt
-- **Terminal Icons**: Visual file and folder icons in the terminal
-- **PSReadLine**: Improved command-line editing experience
-- **PSFzf**: Fuzzy finder for PowerShell
-- **Fast Node Manager (fnm)**: Efficient Node.js version management
+- [**WezTerm**](https://wezfurlong.org/wezterm/): A GPU-accelerated cross-platform terminal emulator
+- [**PowerShell Profile**](https://github.com/powershell/powershell): Custom-tailored PowerShell profile for enhanced productivity
+- [**Starship**](https://starship.rs/): Beautiful and informative prompt
+- [**VS Code**](https://code.visualstudio.com/): A powerful and versatile code editor
 
 ## 🖼️ Screenshots
 
-![PowerShell with Oh My Posh](/images/terminal.png)
-
-## 🙏 Acknowledgments
-
-- [Oh My Posh](https://ohmyposh.dev/)
-- [PSReadLine](https://github.com/PowerShell/PSReadLine)
-- [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)
-- [PSFzf](https://github.com/kelleyma49/PSFzf)
-- [Fast Node Manager (fnm)](https://github.com/Schniz/fnm)
+![PowerShell with Oh My Posh](/images/desktop.png)
 
 ## 📬 Contact
 
 For any questions or suggestions, feel free to reach out to me at [pyyupsk@proton.me](mailto:pyyupsk@proton.me).
 
 Happy coding! 💻✨
-
