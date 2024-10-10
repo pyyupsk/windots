@@ -31,7 +31,9 @@ $tools = @(
     "sharkdp.fd",
     "JesseDuffield.lazygit",
     "macchina",
-    "fzf"
+    "fzf",
+    "ajeetdsouza.zoxide",
+    "Schniz.fnm"
 )
 
 foreach ($tool in $tools) {
