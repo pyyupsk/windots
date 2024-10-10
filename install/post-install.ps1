@@ -12,7 +12,6 @@ $sourceWeztermPath = ".\wezterm\.wezterm.lua"
 $sourceGlazeWMPath = ".\glazewm\config.yaml"
 $sourceYasbPath = ".\yasb"
 $sourceProfilePath = ".\powershell\profile.ps1"
-$sourceThemePath = ".\oh-my-posh\pyyupsk.omp.json"
 
 # Copy wezterm script
 try {
@@ -70,13 +69,6 @@ try {
     }
 } catch {
     Handle-Error "Failed to create theme directory: $_"
-}
-
-# Copy theme script
-try {
-    Copy-Item -Path $sourceThemePath -Destination "$env:POSH_THEMES_PATH\pyyupsk.omp.json" -Force
-} catch {
-    Handle-Error "Failed to copy theme script: $_"
 }
 
 Write-Host "Profile and theme scripts copied successfully!"

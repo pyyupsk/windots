@@ -23,11 +23,9 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
 
 # Install common tools using winget
 $tools = @(
-    "Git.Git",
     "GlazeWM",
     "AmN.yasb",
     "wez.wezterm",
-    "Microsoft.PowerShell",
     "Starship.Starship",
     "eza-community.eza",
     "sharkdp.fd",
