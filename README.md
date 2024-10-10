@@ -35,52 +35,19 @@ Before running the installation, make sure you have the following installed:
 
    You can now enjoy a modern, efficient, and powerful development setup tailored to your workflow.
 
-## 📦 What’s Included?
+## 💻 My Setup
 
-This repository contains configurations for various tools and environments that help you get a fully functional development system up and running in no time:
+Here are the details of the tools and environment configurations I use:
 
-### 1. **WezTerm** 🖥️
-
-- Location: `wezterm/.wezterm.lua`
-- [WezTerm](https://wezfurlong.org/wezterm/) is a GPU-accelerated, cross-platform terminal emulator that provides fast and beautiful terminal experiences.
-- Configuration includes custom themes, key bindings, and font settings to create a smooth terminal experience.
-
-### 2. **PowerShell Profile** ⚙️
-
-- Location: `powershell/profile.ps1`
-- A custom PowerShell profile that includes helpful aliases, environment settings, and productivity tweaks.
-- This enhances the command-line experience with features like auto-completions and prompt customizations.
-
-### 3. **Starship Prompt** 🚀
-
-- Location: `starship/starship.toml`
-- [Starship](https://starship.rs/) is a cross-shell prompt that provides a fast, minimal, and customizable command prompt.
-- The configuration sets up a modern, informative, and minimalistic prompt for your terminal.
-
-### 4. **VS Code** 📝
-
-- Location: `vscode/settings.json` and `vscode/keybindings.json`
-- [Visual Studio Code](https://code.visualstudio.com/) is a lightweight but powerful source code editor.
-- Pre-configured settings for a productive development experience, including custom key bindings, theme, and extensions.
-
-### 5. **GlazeWM** 🪟
-
-- Location: `glazewm/config.yaml`
-- [GlazeWM](https://github.com/lacymorrow/glaze-wm) is a tiling window manager for Windows, providing a highly efficient way to manage multiple windows.
-- This configuration file allows for custom window layouts and behavior.
-
-### 6. **Yasb** 🖌️
-
-- Location: `yasb/config.yaml` and `yasb/styles.css`
-- Yasb (Yet Another Status Bar) is a highly customizable status bar designed to provide key system information at a glance.
-- This setup includes custom CSS styling and configuration for a sleek and functional status bar.
-
-## ⚙️ Installation Details
-
-- **Main Install Script**: The main installation script is located at `install/install.ps1`. This script automates the installation of all required tools and configurations.
-- **Tool-Specific Installation**:
-  - `install/install-tools.ps1`: Installs specific software and utilities (e.g., VS Code, Starship, WezTerm).
-  - `install/post-install.ps1`: Handles any post-installation setup (e.g., additional configurations, environment variable setup).
+- **Operating System**: Windows 11 💻
+- **Window Manager**: [GlazeWM](https://github.com/glzr-io/glazewm) (Tiling Window Manager for efficient window handling) 🦊 _config included!_
+- **Shell**: PowerShell 🦊 _config included!_
+- **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/) (GPU-accelerated cross-platform terminal) 🦊 _config included!_
+- **Editor**: [Visual Studio Code](https://code.visualstudio.com/) (Lightweight and powerful source code editor) 🦊 _config included!_
+- **Prompt**: [Starship](https://starship.rs/) (Minimal, fast cross-shell prompt) 🦊 _config included!_
+- **Status Bar**: [Yasb](https://github.com/amnweb/yasb) (Yet Another Status Bar) 🦊 _config included!_
+- **File Manager**: [Yazi](https://github.com/sxyazi/yazi) (a blazing fast terminal file manager)
+- **Launcher**: [Flow Launcher](https://flowlauncher.com/) (a fast and customizable application launcher)
 
 ## 🖼️ Screenshots
 
