@@ -33,6 +33,7 @@ $ENV:FZF_DEFAULT_OPTS = @"
 # Custom aliases and functions for common tasks
 function la { eza -l -a --icons }
 function ll { eza -T --icons }
+function lla { eza -T -a --icons }
 function l { eza -l --icons }
 function nf { param($name) New-Item -ItemType "file" -Name $name }
 function nd { param($name) New-Item -ItemType "directory" -Name $name }
