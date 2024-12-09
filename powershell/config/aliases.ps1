@@ -8,6 +8,7 @@ function nd { param($name) New-Item -ItemType "directory" -Name $name }
 function rm { param($name) Remove-Item $name }
 function rmrf { param($name) Remove-Item $name -Force -Recurse }
 function c { Clear-Host }
+function wget { wget2 $args }
 
 # Git aliases
 function gs { git status }

@@ -31,7 +31,10 @@ $tools = @(
     "sharkdp.fd",
     "fzf",
     "ajeetdsouza.zoxide",
-    "Schniz.fnm"
+    "Schniz.fnm",
+    "sharkdp.bat",
+    "GNU.Wget2",
+    "BurntSushi.ripgrep.MSVC"
 )
 
 foreach ($tool in $tools) {
@@ -52,5 +55,10 @@ if (Test-Path $openssl_path) {
 } else {
     Write-Warning "OpenSSL path not found. Please add it manually to your PATH if needed."
 }
+
+# Bat theme
+mkdir -p "$(bat --config-dir)/themes"
+wget -P "$(bat --config-dir)/themes" "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme"
+bat cache --build
 
 Write-Host "Tools installed successfully!"

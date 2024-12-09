@@ -12,6 +12,7 @@ Usage:
     rm <n> - Remove a file
     rmrf <n> - Remove a file and all its contents
     c - Clear the console
+    wget - Download a file using wget2 (GNU.Wget2)
     export <n> <value> - Export a variable
     gs - Get the status of the current git repository
     gsvl - Get the verbose status of the current git repository and save to gitstatus.txt
