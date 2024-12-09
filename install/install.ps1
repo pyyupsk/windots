@@ -19,13 +19,15 @@ try {
     Handle-Error "Failed to run install-tools.ps1: $_"
 }
 
-# Find or create PowerShell profile
-if (!(Test-Path -Path $PROFILE)) {
-    try {
-        New-Item -ItemType File -Path $PROFILE -Force
-    } catch {
-        Handle-Error "Failed to create PowerShell profile: $_"
-    }
+# Copy the powershell configuration files to the correct location
+$destination = Join-Path (Split-Path -Path $PROFILE) "config"
+try {
+    # Ensure the config directory exists
+    New-Item -ItemType Directory -Path $destination -Force | Out-Null
+    Copy-Item -Path ".\powershell\config\*" -Destination $destination -Recurse -Force
+    Copy-Item -Path ".\powershell\Microsoft.PowerShell_profile.ps1" -Destination $PROFILE -Force
+} catch {
+    Handle-Error "Failed to copy PowerShell configuration files: $_"
 }
 
 # Install PowerShell modules
@@ -40,62 +42,94 @@ foreach ($module in $modules) {
     }
 }
 
-# Install Oh-My-Posh
-try {
-    winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
-} catch {
-    Handle-Error "Failed to install Oh-My-Posh: $_"
-}
-
-# Install Nerd Font (CascadiaCode)
+# Install Nerd Font (JetBrains Mono)
 # Credit to https://github.com/ChrisTitusTech/powershell-profile/blob/main/setup.ps1#L20
 function Install-NerdFonts {
     param (
         [string]$FontName = "JetBrainsMono",
         [string]$FontDisplayName = "JetBrains Mono",
-        [string]$Version = "3.2.1"
+        [string]$Version = "3.3.0"
     )
 
     try {
-        [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
-        $fontFamilies = (New-Object System.Drawing.Text.InstalledFontCollection).Families.Name
-        if ($fontFamilies -notcontains "${FontDisplayName}") {
-            $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${Version}/${FontName}.zip"
-            $zipFilePath = "$env:TEMP\${FontName}.zip"
-            $extractPath = "$env:TEMP\${FontName}"
+        # Check if script is running as administrator
+        if (-not ([bool](net session 2>$null))) {
+            Write-Error "This script requires administrator privileges. Please run as administrator."
+            return
+        }
 
-            $webClient = New-Object System.Net.WebClient
-            $webClient.DownloadFileAsync((New-Object System.Uri($fontZipUrl)), $zipFilePath)
+        # Check if font is already installed
+        if (Test-Path "C:\Windows\Fonts\${FontName}NerdFont-Regular.ttf") {
+            Write-Host "Font ${FontDisplayName} is already installed"
+            return
+        }
 
-            while ($webClient.IsBusy) {
-                Start-Sleep -Seconds 2
+        # Define paths and URLs
+        $fontZipUrl = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${Version}/${FontName}.zip"
+        $zipFilePath = "$env:TEMP\${FontName}.zip"
+        $extractPath = "$env:TEMP\${FontName}"
+
+        # Download the font file (synchronous, no loop)
+        $webClient = New-Object System.Net.WebClient
+        Write-Host "Downloading font from $fontZipUrl..."
+        $webClient.DownloadFile($fontZipUrl, $zipFilePath)
+        Write-Host "Download complete."
+
+        # Extract the font ZIP
+        Write-Host "Extracting ZIP file..."
+        $extractedFiles = Expand-Archive -Path $zipFilePath -DestinationPath $extractPath -Force -PassThru
+
+        # Access the Windows Fonts folder (retry 3 times if it fails)
+        $destination = $null
+        for ($i = 0; $i -lt 3; $i++) {
+            try {
+                $destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
+                if ($destination) { break }
             }
+            catch {
+                Start-Sleep -Seconds 1
+            }
+        }
 
-            Expand-Archive -Path $zipFilePath -DestinationPath $extractPath -Force
-            $destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-            Get-ChildItem -Path $extractPath -Recurse -Filter "*.ttf" | ForEach-Object {
-                If (-not(Test-Path "C:\Windows\Fonts\$($_.Name)")) {
-                    $destination.CopyHere($_.FullName, 0x10)
+        if (-not $destination) {
+            Write-Error "Failed to access the Windows Fonts folder after multiple attempts."
+            return
+        }
+
+        # Copy font files to Windows Fonts folder
+        Write-Host "Copying font files to Windows Fonts folder..."
+        Get-ChildItem -Path $extractPath -Recurse -Filter "*.ttf" | ForEach-Object {
+            $fontFilePath = $_.FullName
+            $fontFileName = $_.Name
+            try {
+                if (-not(Test-Path "C:\Windows\Fonts\$fontFileName")) {
+                    Write-Host "Installing font: $fontFileName"
+                    $destination.CopyHere($fontFilePath, 0x10)
                 }
             }
-
-            Remove-Item -Path $extractPath -Recurse -Force
-            Remove-Item -Path $zipFilePath -Force
-        } else {
-            Write-Host "Font ${FontDisplayName} already installed"
+            catch {
+                Write-Warning "Failed to install font: $fontFileName. Error: $_"
+            }
         }
+
+        # Clean up temporary files
+        Write-Host "Cleaning up temporary files..."
+        Remove-Item -Path $extractPath -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path $zipFilePath -Force -ErrorAction SilentlyContinue
+        Write-Host "Installation of ${FontDisplayName} complete!"
     }
     catch {
         Write-Error "Failed to download or install ${FontDisplayName} font. Error: $_"
     }
 }
+
 try {
     Install-NerdFonts -FontName "JetBrainsMono" -FontDisplayName "JetBrains Mono"
 } catch {
     Handle-Error "Failed to install Nerd Font: $_"
 }
 
-Write-Host "PowerShell profile setup, modules installed, Oh-My-Posh installed, and Nerd Font installed successfully!"
+Write-Host "PowerShell profile setup, modules installed, and Nerd Font installed successfully!"
 
 # Run the post-install.ps1 script
 try {

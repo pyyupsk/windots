@@ -149,7 +149,6 @@ window_rules:
       - window_process: { equals: 'PowerToys.PowerAccent' }
       - window_process: { equals: 'Lively' }
         window_class: { regex: 'HwndWrapper*' }
-      - window_process: { equals: 'Flow.Launcher' }
 
   # Launches system dialogs as floating by default (eg. File Explorer save/open dialog).
   - commands: ["set-floating"]
@@ -258,13 +257,13 @@ keybindings:
   - commands: ['shell-exec %ProgramFiles%/WezTerm/wezterm-gui.exe']
     bindings: ['alt+enter']
 
-  - commands: ['shell-exec %ProgramFiles%/BraveSoftware/Brave-Browser/Application/brave.exe']
+  - commands: ['shell-exec %ProgramFiles%/Zen Browser/zen.exe']
     bindings: ['alt+b']
 
-  - commands: ['shell-exec %ProgramFiles%/WezTerm/wezterm-gui.exe start -- yazi']
-    bindings: ['alt+e']
+  - commands: ['shell-exec explorer.exe']
+    bindings: ['alt+f']
 
-  - commands: ['shell-exec %LocalAppData%/Programs/cursor/Cursor.exe']
+  - commands: ['shell-exec %LocalAppData%/Programs/Windsurf/Windsurf.exe']
     bindings: ['alt+c']
 
   # Focus the next/previous workspace defined in `workspaces` config.

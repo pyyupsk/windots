@@ -10,6 +10,10 @@ return {
     -- Default Program
     default_prog = {"pwsh", "-NoLogo"},
 
+    -- Window Size Settings
+    initial_cols = 100,
+    initial_rows = 30,
+
     -- Font and Rendering Settings
     font = wezterm.font('JetBrainsMono Nerd Font'),
     freetype_load_target = "Normal",
@@ -30,13 +34,10 @@ return {
         font_size = 11.0
     },
 
-    -- Default Working Directory
-    default_cwd = "~",
-
     -- Window Decorations and Tab Bar
     hide_tab_bar_if_only_one_tab = true,
     window_decorations = "RESIZE",
-    enable_scroll_bar = true,
+    enable_scroll_bar = false,
 
     -- Key Bindings
     keys = {{

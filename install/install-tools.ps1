@@ -29,8 +29,6 @@ $tools = @(
     "Starship.Starship",
     "eza-community.eza",
     "sharkdp.fd",
-    "JesseDuffield.lazygit",
-    "macchina",
     "fzf",
     "ajeetdsouza.zoxide",
     "Schniz.fnm"

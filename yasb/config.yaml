@@ -11,100 +11,93 @@ bars:
       position: "top"
       center: false
     blur_effect:
-      enabled: false 
-      acrylic: false 
-      dark_mode: false
-      round_corners: false
-      border_color: System
+      enabled: true
+      acrylic: true
+      dark_mode: true
+      round_corners: true
+      border_color: "#11111b"
     window_flags:
       always_on_top: false
       windows_app_bar: true
     dimensions:
       width: "100%"
-      height: 34
+      height: 36
     padding:
-      top: 8
-      left: 8
+      top: 4
+      left: 10
       bottom: 4
-      right: 8
+      right: 10
     widgets:
-      left:
-        [
-          "custom_button",
-          "media"
-        ]
-      center: [
-         "clock"
-        ]
-      right:
-        [
-          "weather",
-          "volume",
-          "language",
-          "power_menu"
-        ]
+      left: ["win_button","active_window"]
+      center: ["clock"]
+      right: ["update","weather","volume","language","power_menu"]
+
 widgets:
-  # Right menu
-  custom_button:
+  # Left widgets
+  win_button:
       type: "yasb.custom.CustomWidget"
       options:
-        label: "<span>\uf40e</span>"
-        label_alt: "<span>\uf40e</span>"
-        class_name: "start-menu"
+        label: "\ue62a"
+        label_alt: "\ue62a"
+        class_name: "system-widget"
         callbacks:
           on_left: "exec cmd.exe /c start %LOCALAPPDATA%\\FlowLauncher\\Flow.Launcher.exe"
-  media:
-      type: "yasb.media.MediaWidget"
+  active_window:
+      type: "yasb.active_window.ActiveWindowWidget"
       options:
-        label: "<span>\uf001</span> {title} - {artist}"
-        label_alt: "<span>\uf001</span> {title} - {artist}"
-        max_field_size:
-          label: 150
-          label_alt: 150
-        show_thumbnail: false
-        controls_only: false
-        controls_left: true
-        hide_empty: true
-        thumbnail_alpha: 250
-        thumbnail_padding: 8
-        thumbnail_corner_radius: 0
-        icons:
-          prev_track: ""
-          next_track: ""
-          play: ""
-          pause: ""
-  # Center menu
+        label: "{win[title]}"
+        label_alt: ""
+        label_no_window: ""
+        label_icon: false
+        label_icon_size: 12
+        max_length: 36
+        max_length_ellipsis: "..."
+        monitor_exclusive: true
+
+  # Center widgets
   clock:
       type: "yasb.clock.ClockWidget"
       options:
-        label: "<span>\uf4ab</span> {%A, %d %B %Y %H:%M}"
-        label_alt: "<span>\uf4ab</span> {%A, %d %B %Y %H:%M}"
+        label: "{%A, %B %d, %Y | %H:%M:%S}"
+        label_alt: "{%A, %B %d, %Y | %H:%M:%S}"
         timezones: [] #Looking up time zone info from registry
-  # Left menu
+
+  # Right widgets
+  update:
+    type: "yasb.update_check.UpdateCheckWidget"
+    options:
+      winget_update:
+        enabled: true
+        label: "<span>\uf019</span> {count}"
+        interval: 1800
+        exclude: []
+      windows_update:
+        enabled: false
+        label: "<span>\uf0ab</span> {count}"
+        interval: 240
+        exclude: []
   weather:
       type: "yasb.weather.WeatherWidget"
       options:
-        label: "<span>{icon}</span> {temp_c}"
-        label_alt: "{location}: Min {min_temp_c}, Max {max_temp_c}, Humidity {humidity}"
+        label: "<span>{icon}</span> {temp_c}°C"
+        label_alt: "{location}: {conditions} | Temp: {temp_c}°C ({min_temp_c}°C - {max_temp_c}°C)"
         api_key: '3bf4cf9a7c3f40d6b31174128242807'
-        update_interval: 600 #Update interval in seconds, Min 600
+        update_interval: 900
         hide_decimal: true
-        location: 'Cairo'
+        location: 'Nakhon Pathom, Nakhon Pathom'
         callbacks:
           on_left: "toggle_label"
+          on_right: "exec cmd.exe /c start https://www.weatherapi.com/weather/q/nakhon-pathom-nakhon-pathom-thailand"
         icons: 
           sunnyDay: "\ue30d"
           clearNight: "\ue32b"
-          cloudyDay: "\udb81\udd99"
-          cloudyNight: "\ue311"
-          rainyDay: "\udb81\ude7e"
-          rainyNight: "\udb81\ude7e"
-          snowyIcyDay: "\udb81\udd98"
-          snowyIcyNight: "\udb81\udd98"
-          blizzard: "\uebaa"
-          default: "\uebaa"
-          # https://www.weatherapi.com/docs/
-          # Usage {temp_c}, {min_temp_c}, {max_temp_c}, {temp_f}, {min_temp_f}, {max_temp_f}, {location}, {humidity}, {icon}, {conditions}
+          cloudyDay: "\ue312"
+          cloudyNight: "\ue312"
+          rainyDay: "\ue308"
+          rainyNight: "\ue308"
+          snowyIcyDay: "\ue31a"
+          snowyIcyNight: "\ue31a"
+          default: "\ue302"
   volume:
       type: "yasb.volume.VolumeWidget"
       options:
@@ -118,14 +111,6 @@ widgets:
           - "\uf028"  # Icon for 61-100% volume
         callbacks:
           on_right: "exec cmd.exe /c start ms-settings:sound"
-  language:
-    type: "yasb.language.LanguageWidget"
-    options:
-      label: "<span>\uf1ab</span> {lang[language_code]}-{lang[country_code]}"
-      label_alt: " {lang[full_name]}"
-      update_interval: 5 # 5 seconds
-      callbacks:
-        on_left: "toggle_label"
   power_menu:
       type: "yasb.power_menu.PowerMenuWidget"
       options:
@@ -133,12 +118,19 @@ widgets:
         uptime: True
         blur: False
         blur_background: True
-        animation_duration: 300 # Milisecond 
-        button_row: 3 # Number of buttons in row, min 1 max 5
+        animation_duration: 250 # Milisecond 
+        button_row: 5 # Number of buttons in row, min 1 max 5
         buttons:
-          lock: ["\uea75","Lock"]
-          signout: ["\udb80\udf43","Sign out"]
-          shutdown: ["\uf011","Shut Down"]
-          restart: ["\uead2","Restart"]
-          hibernate: ["\uf28e","Hibernate"]
-          cancel: ["\udb81\udf3a","Cancel"]
+          shutdown: ["\uf011", "Shut Down"]
+          restart: ["\uead2", "Restart"]
+          signout: ["\udb80\udf43", "Sign out"]
+          hibernate: ["\uf28e", "Hibernate"]
+          sleep: ["\u23fe", "Sleep"]
+          cancel: ["", "Cancel"]
+
+  language:
+      type: "yasb.language.LanguageWidget"
+      options:
+        label: "\uf0ac {lang[language_code]}"
+        label_alt: "\uf0ac {lang[full_name]}"
+        update_interval: 1

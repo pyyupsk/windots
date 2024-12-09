@@ -20,7 +20,6 @@
     "command": "editor.action.blockComment",
     "when": "editorTextFocus && !editorReadonly"
   },
-
   // Quick Navigation within editor
   {
     "key": "ctrl+shift+enter",
@@ -47,7 +46,6 @@
     "command": "scrollPageDown",
     "when": "textInputFocus"
   },
-
   // Navigation between panes and tabs
   {
     "key": "ctrl+tab",
@@ -57,19 +55,16 @@
     "key": "ctrl+shift+tab",
     "command": "workbench.action.previousEditor"
   },
-
   // Zen mode (for full-screen focus)
   {
     "key": "f11",
     "command": "workbench.action.toggleZenMode"
   },
-
   // Open Command Palette (your primary way to do anything)
   {
     "key": "ctrl+shift+p",
     "command": "workbench.action.showCommands"
   },
-
   // File Explorer Navigation
   {
     "key": "ctrl+e",
@@ -79,13 +74,11 @@
     "key": "ctrl+shift+e",
     "command": "workbench.view.explorer"
   },
-
   // Searching Files and Text
   {
     "key": "ctrl+f",
     "command": "actions.find"
   },
-
   // Create a new file or folder
   {
     "key": "ctrl+n",
@@ -97,7 +90,6 @@
     "command": "explorer.newFolder",
     "when": "explorerViewletVisible"
   },
-
   // Disable the default keybindings
   {
     "key": "ctrl+shift+f",
