@@ -217,10 +217,10 @@ keybindings:
 
   # Change focus from tiling windows -> floating -> fullscreen.
   - commands: ['wm-cycle-focus']
-    bindings: ['alt+x']
+    bindings: ['alt+space']
 
   # Change the focused window to be floating.
-  - commands: ['toggle-floating --centered']
+  - commands: ['toggle-floating']
     bindings: ['alt+shift+space']
 
   # Change the focused window to be tiling.
@@ -272,10 +272,6 @@ keybindings:
   - commands: ['focus --prev-workspace']
     bindings: ['alt+a']
 
-  # Focus the workspace that last had focus.
-  - commands: ['focus --recent-workspace']
-    bindings: ['alt+d']
-
   # Change focus to a workspace defined in `workspaces` config.
   - commands: ['focus --workspace 1']
     bindings: ['alt+1']
@@ -295,17 +291,6 @@ keybindings:
     bindings: ['alt+8']
   - commands: ['focus --workspace 9']
     bindings: ['alt+9']
-
-  # Move the focused window's parent workspace to a monitor in a given
-  # direction.
-  - commands: ['move-workspace --direction left']
-    bindings: ['alt+shift+a']
-  - commands: ['move-workspace --direction right']
-    bindings: ['alt+shift+f']
-  - commands: ['move-workspace --direction up']
-    bindings: ['alt+shift+d']
-  - commands: ['move-workspace --direction down']
-    bindings: ['alt+shift+s']
 
   # Move focused window to a workspace defined in `workspaces` config.
   - commands: ['move --workspace 1', 'focus --workspace 1']
