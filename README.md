@@ -40,12 +40,12 @@ Before running the installation, make sure you have the following installed:
 Here are the details of the tools and environment configurations I use:
 
 - **Operating System**: Windows 11 💻
-- **Window Manager**: [GlazeWM](https://github.com/glzr-io/glazewm) (Tiling Window Manager for efficient window handling) 🦊 _config included!_
-- **Shell**: PowerShell 🦊 _config included!_
-- **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/) (GPU-accelerated cross-platform terminal) 🦊 _config included!_
-- **Editor**: [Visual Studio Code](https://code.visualstudio.com/) (Lightweight and powerful source code editor) 🦊 _config included!_
-- **Prompt**: [Starship](https://starship.rs/) (Minimal, fast cross-shell prompt) 🦊 _config included!_
-- **Status Bar**: [Yasb](https://github.com/amnweb/yasb) (Yet Another Status Bar) 🦊 _config included!_
+- **Window Manager**: [GlazeWM](https://github.com/glzr-io/glazewm) (Tiling Window Manager for efficient window handling)
+- **Shell**: PowerShell
+- **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/) (GPU-accelerated cross-platform terminal)
+- **Editor**: [Visual Studio Code](https://code.visualstudio.com/) (Lightweight and powerful source code editor)
+- **Prompt**: [Starship](https://starship.rs/) (Minimal, fast cross-shell prompt)
+- **Status Bar**: [Yasb](https://github.com/amnweb/yasb) (Yet Another Status Bar)
 - **File Manager**: [Yazi](https://github.com/sxyazi/yazi) (a blazing fast terminal file manager)
 - **Launcher**: [Flow Launcher](https://flowlauncher.com/) (a fast and customizable application launcher)
 

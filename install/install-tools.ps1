@@ -26,15 +26,21 @@ $tools = @(
     "GlazeWM",
     "AmN.yasb",
     "wez.wezterm",
+    "sxyazi.yazi",
+    "Flow-Launcher.Flow-Launcher",
     "Starship.Starship",
     "eza-community.eza",
     "sharkdp.fd",
-    "fzf",
+    "junegunn.fzf",
     "ajeetdsouza.zoxide",
     "Schniz.fnm",
     "sharkdp.bat",
     "GNU.Wget2",
-    "BurntSushi.ripgrep.MSVC"
+    "Gyan.FFmpeg",
+    "7zip.7zip",
+    "jqlang.jq",
+    "BurntSushi.ripgrep.MSVC",
+    "ImageMagick.ImageMagick"
 )
 
 foreach ($tool in $tools) {
@@ -55,10 +61,5 @@ if (Test-Path $openssl_path) {
 } else {
     Write-Warning "OpenSSL path not found. Please add it manually to your PATH if needed."
 }
-
-# Bat theme
-mkdir -p "$(bat --config-dir)/themes"
-wget -P "$(bat --config-dir)/themes" "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme"
-bat cache --build
 
 Write-Host "Tools installed successfully!"
