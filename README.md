@@ -1,6 +1,6 @@
-# Pyyupsk's Dotfiles 🚀
+# Pyyupsk's Windots 🚀
 
-Welcome to **Pyyupsk's dotfiles repository**! This project is designed to automate and streamline the process of setting up a modern development environment on **Windows**, specifically for developers who want an efficient, customizable, and powerful setup.
+Welcome to **Pyyupsk's Windots repository**! This project is designed to automate and streamline the process of setting up a modern development environment on **Windows**, specifically for developers who want an efficient, customizable, and powerful setup.
 
 ## 🌟 Key Features
 
@@ -19,8 +19,8 @@ Before running the installation, make sure you have the following installed:
 1. **Clone the repository** to your local machine:
 
    ```powershell
-   git clone https://github.com/pyyupsk/dotfiles.git
-   cd dotfiles
+   git clone https://github.com/pyyupsk/windots.git
+   cd windots
    ```
 
 2. **Run the installation script** to set up your environment:
